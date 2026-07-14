@@ -2013,6 +2013,8 @@ function UserBubble({ bubble }: { bubble: Extract<Bubble, { kind: "user" }> }) {
   const fileChips = bubble.content.filter(
     (c): c is Extract<MessageContentBlock, { type: "input_file" }> => c.type === "input_file",
   );
+  // Equality selector so Zustand only re-renders the matching bubble.
+  const flashing = useChatStore((s) => s.flashItemId === bubble.itemId);
   // Runtime-injected `[System: ...]` notifications (task completion,
   // timer firings, terminal idle) ride in on role=user. When the content
   // is a pure system marker — no attached images or files — swap the
@@ -2025,8 +2027,6 @@ function UserBubble({ bubble }: { bubble: Extract<Bubble, { kind: "user" }> }) {
   // circle + author-tinted bubble, not an email label.
   const author = bubble.createdBy;
   const showAuthorBadge = shouldShowAuthorBadge(author, getCurrentAuthorId(), isSessionShared);
-  // Equality selector so Zustand only re-renders the matching bubble.
-  const flashing = useChatStore((s) => s.flashItemId === bubble.itemId);
   return (
     <Message
       from="user"

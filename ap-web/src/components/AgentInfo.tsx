@@ -505,7 +505,7 @@ function SessionPoliciesSection({ sessionId }: { sessionId: string }) {
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
         <SectionLabel>Policies</SectionLabel>
-        <button
+        <button aria-label="Add policy"
           type="button"
           onClick={() => setAddOpen(true)}
           className="rounded p-0.5 hover:bg-muted"
